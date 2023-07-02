@@ -15,9 +15,9 @@ const PORT = 8080;
 
 // app.use(cors());
 
-// app.get('/', (req, res) => {
-//     res.json("hello warm welcome to my server");
-// })
+app.get('/', (req, res) => {
+    res.json("hello to my server");
+})
 
 
 

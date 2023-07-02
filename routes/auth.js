@@ -8,9 +8,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const requireLogin = require('../middlewares/requireLogin');
 
-router.get('/', (req, res) => {
-    res.send("Hellio ojej")
-})
+// router.get('/', (req, res) => {
+//     res.send("Hellio ojej")
+// })
 
 
 

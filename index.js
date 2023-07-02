@@ -3,6 +3,11 @@ dotenv.config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
+const morgan = require('morgan')
+
+app.use(cors());
+app.use(morgan('dev'));
 
 require('./models/usermodel');
 require('./models/event');
@@ -10,14 +15,11 @@ app.use(express.json());
 app.use(require('./routes/auth'));
 app.use(require('./routes/createEvent'));
 
-const PORT = 8080;
-// const cors = require('cors');
 
-// app.use(cors());
 
-app.get('/', (req, res) => {
-    res.json("hello to my server");
-})
+// app.get('/', (req, res) => {
+//     res.json("hello to my server");
+// })
 
 
 
@@ -32,8 +34,8 @@ const connectDB = async () => {
 }
 connectDB().then(() => {
 
-    app.listen(PORT, () => {
-        console.log(`server is now running on ${PORT}`);
+    app.listen(process.env.PORT, () => {
+        console.log(`server is now running on ${process.env.PORT}`);
     })
 
 })

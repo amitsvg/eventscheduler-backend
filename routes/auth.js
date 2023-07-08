@@ -23,9 +23,9 @@ router.post("/signup", (req, res) => {
     USER.findOne({ email: email })
         .then((savedUser) => {
             if (savedUser) {
-                return res.status(422).json({ eroor: "User already exist with that email" })
+                return res.status(422).json({ error: "User already exist with that email" })
             }
-            bcrypt.hash(password, 12, (err, hashedPassword) => {
+            bcrypt.hash(password, 12, ( err, hashedPassword) => {
                 const newuser = new USER({
                     name,
                     email,
@@ -33,7 +33,7 @@ router.post("/signup", (req, res) => {
                 })
 
                 newuser.save()
-                    .then((newuser) => { res.json({ meassage: `saved successfully as ${newuser.name}` }) })
+                    .then((newuser) => { res.json({ message: `User registered successfully as ${newuser.name}` }) })
                     .catch(err => { console.log(err) })
 
             })
@@ -61,7 +61,7 @@ router.post("/signin", (req, res) => {
                     if (match) {
                         // return res.status(200).json({ message: "Signed in successfully" })
                         const jtoken = jwt.sign({_id: savedUser.id}, process.env.JWT_SECRET);
-                        res.status(200).json(jtoken);
+                        res.status(200).json({jtoken});
 
                     } else {
 

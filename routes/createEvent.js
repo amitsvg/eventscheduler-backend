@@ -19,10 +19,11 @@ router.post("/createEvent", requireLogin, (req, res) => {
         postedBy: req.user
     })
     evt.save()
-        .then((result) => {
-            return res.json({ event: result });
-        })
+        .then((evt) => { res.json({ message: "Event created successfully" }) })
         .catch(err => console.log(err));
+        // .then((result) => {
+        //     return res.json({ event: result });
+        // })
 })
 
 router.get("/myevents", requireLogin, (req, res) => {

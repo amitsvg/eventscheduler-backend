@@ -48,12 +48,12 @@ router.post("/signup", (req, res) => {
 router.post("/signin", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(422).json({ eroor: "Please add Email and Password" });
+        return res.status(422).json({ error: "Please add Email and Password" });
     }
 
     USER.findOne({ email: email }).then((savedUser) => {
         if (!savedUser) {
-            return res.status(422).json({ Error: "Invalid email" })
+            return res.status(422).json({ error: "Invalid email" })
         }
         else {
             bcrypt.compare(password, savedUser.password)

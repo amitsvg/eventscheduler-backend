@@ -35,20 +35,14 @@ router.post("/signup", (req, res) => {
                 newuser.save()
                     .then((newuser) => { res.json({ message: `User registered successfully as ${newuser.name}` }) })
                     .catch(err => { console.log(err) })
-
             })
-
-
         })
-
-
-
 })
 
 router.post("/signin", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(422).json({ error: "Please add Email and Password" });
+        res.status(422).json({ error: "Please add Email and Password" });
     }
 
     USER.findOne({ email: email }).then((savedUser) => {

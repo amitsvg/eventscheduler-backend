@@ -25,7 +25,7 @@ router.post("/signup", (req, res) => {
             if (savedUser) {
                 return res.status(422).json({ error: "User already exist with that email" })
             }
-            bcrypt.hash(password, 12, ( err, hashedPassword) => {
+            bcrypt.hash(password, 12, (err, hashedPassword) => {
                 const newuser = new USER({
                     name,
                     email,
@@ -51,17 +51,17 @@ router.post("/signin", (req, res) => {
         return res.status(422).json({ eroor: "Please add Email and Password" });
     }
 
-    USER.findOne({ email: email })
-        .then((savedUser) => {
-            if (!savedUser) {
-                return res.status(422).json({ Error: "Invalid email" })
-            }
+    USER.findOne({ email: email }).then((savedUser) => {
+        if (!savedUser) {
+            return res.status(422).json({ Error: "Invalid email" })
+        }
+        else {
             bcrypt.compare(password, savedUser.password)
                 .then((match) => {
                     if (match) {
                         // return res.status(200).json({ message: "Signed in successfully" })
-                        const jtoken = jwt.sign({_id: savedUser.id}, process.env.JWT_SECRET);
-                        res.status(200).json({jtoken});
+                        const jtoken = jwt.sign({ _id: savedUser.id }, process.env.JWT_SECRET);
+                        res.status(200).json({ jtoken });
 
                     } else {
 
@@ -69,7 +69,9 @@ router.post("/signin", (req, res) => {
                     }
                 })
                 .catch(err => { console.log(err) })
-        })
+        }
+    })
+    .catch(err => {console.log(err)});
 })
 
 module.exports = router;

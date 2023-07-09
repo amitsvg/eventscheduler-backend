@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan')
 
-app.use(cors());
 app.use(morgan('dev'));
+app.use(cors());
 
 require('./models/usermodel');
 require('./models/event');

@@ -6,6 +6,10 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    completed:{
+        type: Boolean,
+        required: true
+    },
     eventDate: {
         type: Date,
         required: true

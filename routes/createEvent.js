@@ -16,6 +16,7 @@ router.post("/createEvent", requireLogin, (req, res) => {
     const evt = new EVENT({
         title,
         eventDate,
+        completed: false,
         postedBy: req.user
     })
     evt.save()
@@ -33,6 +34,14 @@ router.get("/myevents", requireLogin, (req, res) => {
         .then(myevents => {
             res.json(myevents)
         })
+})
+
+router.put("/update", (req, res) => {
+    EVENT.findByIdAndUpdate(req.body.eventId, {
+        $set : {completed: true}
+    })
+    .then(result => res.json(result))
+    .catch(err => res.status(422).json(err));
 })
 
 
